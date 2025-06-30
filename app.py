@@ -60,6 +60,8 @@ def check_bounce(ticker):
                     raw_iv = atm_call['impliedVolatility'].iloc[0]
                     if pd.notna(raw_iv) and raw_iv > 0:
                         implied_volatility = f"{raw_iv * 100:.2f}%"
+        except Exception as e:
+            st.warning(f"Could not fetch implied volatility for {ticker}: {e}")
 
         return (ticker, bounce_ma, last_close, implied_volatility), data
     return None, None
